@@ -1,0 +1,6 @@
+[submodule "external/bootstrap"]
+	path = external/bootstrap
+	url = https://github.com/twbs/bootstrap.git
+[submodule "external/bootswatch"]
+	path = external/bootswatch
+	url = https://github.com/thomaspark/bootswatch.git
