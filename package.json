@@ -10,6 +10,7 @@
   "author": "Michael Thomas (malinka) <malinka@entropy-development.com>",
   "license": "ISC",
   "dependencies": {
+    "@google/cloud-debug": "^0.8.3",
     "co-fs": "^1.2.0",
     "koa": "^1.2.1",
     "koa-compress": "^1.0.9",

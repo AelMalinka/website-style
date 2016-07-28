@@ -1,6 +1,8 @@
 /*	Copyright 2016 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 */
 
+require('@google/cloud-debug');
+
 var koa = require('koa');
 
 var logger = require('koa-logger');
