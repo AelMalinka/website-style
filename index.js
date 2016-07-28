@@ -1,7 +1,12 @@
 /*	Copyright 2016 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 */
 
-require('@google/cloud-debug');
+'use strict';
+
+if(process.env.NODE_ENV === 'production') {
+	require('@google/cloud-trace').start();
+	require('@google/cloud-debug');
+}
 
 var koa = require('koa');
 
