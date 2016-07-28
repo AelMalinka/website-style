@@ -1,34 +1,24 @@
-var cofs = require('co-fs');
-var less = require('less');
-var plugin = require('less-plugin-autoprefix');
+/*	Copyright 2016 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+*/
 
-module.exports = function(options) {
-	var srcDir = options.src || '.';
+var koa = require('koa');
 
-	return function *(next) {
-		if(!this.path.endsWith('.css')) return yield next;
+var logger = require('koa-logger');
+var fresh = require('koa-fresh');
+var etag = require('koa-etag');
+var compress = require('koa-compress');
+var conditional = require('koa-conditional-get');
 
-		var src = srcDir + this.path.replace('.css', '.less');
+var style = require('./style.js');
+var config = require('./config.js');
 
-		if(yield cofs.exists(src)) {
-			var stat = yield cofs.stat(src);
-			var code = yield cofs.readFile(src);
-			var tree = yield parse(code.toString(), options);
-			this.type = 'css';
-			this.lastModified = stat.mtime;
-			this.body = tree.css;
-		}
-	}
-}
+var app = koa();
 
-function parse(code, options) {
-	return function(callback) {
-		var prefixer = new plugin({
-			browsers: ['last 2 versions']
-		});
-		less.render(code, {
-			plugins: [prefixer],
-			compress: options.compress
-		}, callback);
-	}
-}
+app.use(logger());
+app.use(compress());
+app.use(conditional());
+app.use(fresh());
+app.use(etag());
+app.use(style({src: config.where, compress: config.compress}));
+
+app.listen(config.port);

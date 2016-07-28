@@ -1,0 +1,4 @@
+# Copyright 2016 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+
+runtime: nodejs
+vm: true
