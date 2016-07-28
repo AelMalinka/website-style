@@ -2,3 +2,4 @@
 
 runtime: nodejs
 vm: true
+service: style
