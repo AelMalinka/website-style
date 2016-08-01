@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "[[ $NODE_ENV == 'production' ]] && node index.js || nodemon index.js",
-    "deploy": "gcloud app deploy"
+    "deploy": "gcloud app deploy --version ${npm_package_version//./-}"
   },
   "author": "Michael Thomas (malinka) <malinka@entropy-development.com>",
   "license": "ISC",
