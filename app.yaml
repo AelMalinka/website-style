@@ -3,3 +3,5 @@
 runtime: nodejs
 vm: true
 service: style
+threadsafe: true
+min_num_instances: 1
