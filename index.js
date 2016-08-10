@@ -17,15 +17,25 @@ var compress = require('koa-compress');
 var conditional = require('koa-conditional-get');
 
 var style = require('./style.js');
-var config = require('./config.js');
+var config = require('config')(require('./config.js'));
 
 var app = koa();
 
-app.use(logger());
-app.use(compress());
-app.use(conditional());
-app.use(fresh());
-app.use(etag());
-app.use(style({src: config.where, compress: config.compress}));
+var server;
 
-app.listen(config.port);
+config.onReady(function() {
+	app.use(logger());
+	app.use(compress());
+	app.use(conditional());
+	app.use(fresh());
+	app.use(etag());
+	app.use(style({src: config.where, compress: config.compress}));
+
+	server = app.listen(config.port);
+});
+
+config.onChange(function() {
+	server.close(function() {
+		server = app.listen(config.port);
+	});
+});

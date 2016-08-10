@@ -21,6 +21,7 @@
     "@google/cloud-debug": "^0.8.3",
     "@google/cloud-trace": "^0.5.5",
     "co-fs": "^1.2.0",
+    "config": "https://storage.googleapis.com/release/config.tar.gz",
     "koa": "^1.2.1",
     "koa-compress": "^1.0.9",
     "koa-conditional-get": "^1.0.3",
