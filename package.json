@@ -18,8 +18,8 @@
     "url": "https://source.developers.google.com/p/entropy-1351/r/style"
   },
   "dependencies": {
-    "@google/cloud-debug": "^0.8.3",
-    "@google/cloud-trace": "^0.5.5",
+    "@google-cloud/debug-agent": "^1.0.0",
+    "@google-cloud/trace-agent": "^1.0.1",
     "co-fs": "^1.2.0",
     "config": "https://storage.googleapis.com/release/config.tar.gz",
     "koa": "^1.2.1",
