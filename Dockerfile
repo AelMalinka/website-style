@@ -3,19 +3,13 @@
 
 FROM node
 
-RUN npm install -g nodemon
-EXPOSE 8080
-
-RUN mkdir -p /code
 COPY . /code
-
-WORKDIR /code
 RUN npm install
-
 VOLUME /code
-ENV CONFIG_HOST="localhost" \
-	CONFIG_PORT="8080"
-
 VOLUME /code/node_modules/config
+
+ENV CONFIG_HOST="localhost" \
+	CONFIG_PORT="8080" \
+	FORWARD="localhost:8080"
 
 CMD [ "npm", "start" ]
