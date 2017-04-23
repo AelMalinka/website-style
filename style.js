@@ -2,37 +2,42 @@
 	Distributed under the terms of the GNU Affero General Public License v3
 */
 
-var cofs = require('co-fs');
-var less = require('less');
-var plugin = require('less-plugin-autoprefix');
+const co = require('co');
+const cofs = require('co-fs');
+const less = require('less');
+const plugin = require('less-plugin-autoprefix');
+
+const stat = co.wrap(function* (file) {
+	return yield cofs.stat(file);
+});
+
+const readFile = co.wrap(function* (file) {
+	return yield cofs.readFile(file);
+});
 
 module.exports = function(options) {
 	var srcDir = options.src || '.';
 
-	return function *(next) {
-		if(!this.path.endsWith('.css')) return yield next;
+	return async (ctx, next) => {
+		if(!ctx.path.endsWith('.css')) return await next();
 
-		var src = srcDir + this.path.replace('.css', '.less');
+		var src = srcDir + ctx.path.replace('.css', '.less');
 
-		if(yield cofs.exists(src)) {
-			var stat = yield cofs.stat(src);
-			var code = yield cofs.readFile(src);
-			var tree = yield parse(code.toString(), options);
-			this.type = 'css';
-			this.lastModified = stat.mtime;
-			this.body = tree.css;
+		if(await cofs.exists(src)) {
+			const stats = await stat(src);
+			const buff = await readFile(src)
+
+			const code = buff.toString();
+
+			const prefixer = new plugin({ browsers: ['last 2 versions']});
+			const tree = await less.render(code, {
+				plugins: [prefixer],
+				compress: options.compress
+			});
+
+			ctx.type = 'css';
+			ctx.lastModified = stats.mtime;
+			ctx.body = tree.css;
 		}
-	}
-}
-
-function parse(code, options) {
-	return function(callback) {
-		var prefixer = new plugin({
-			browsers: ['last 2 versions']
-		});
-		less.render(code, {
-			plugins: [prefixer],
-			compress: options.compress
-		}, callback);
 	}
 }
