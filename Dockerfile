@@ -3,7 +3,9 @@
 
 FROM node
 
+RUN mkdir -p /code
 COPY . /code
+WORKDIR /code
 RUN npm install
 VOLUME /code
 VOLUME /code/node_modules/config
