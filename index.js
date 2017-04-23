@@ -4,27 +4,26 @@
 
 'use strict';
 
-var koa = require('koa');
+const koa = require('koa');
 
-var logger = require('koa-logger');
-var fresh = require('koa-fresh');
-var etag = require('koa-etag');
-var compress = require('koa-compress');
-var conditional = require('koa-conditional-get');
+const logger = require('koa-logger');
+const etag = require('koa-etag');
+const compress = require('koa-compress');
+const conditional = require('koa-conditional-get');
 
-var style = require('./style.js');
-var config = require('config')(require('./config.js'));
+const style = require('./style.js');
+const config = require('config')(require('./config.js'));
 
-var app = koa();
+const app = new koa();
 
 var server;
 
+app.use(logger());
+app.use(compress());
+app.use(conditional());
+app.use(etag());
+
 config.onReady(function() {
-	app.use(logger());
-	app.use(compress());
-	app.use(conditional());
-	app.use(fresh());
-	app.use(etag());
 	app.use(style({src: config.where, compress: config.compress}));
 
 	server = app.listen(config.port);
