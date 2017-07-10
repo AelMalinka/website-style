@@ -7,5 +7,8 @@ module.exports = {
 	where: process.env.STYLE_DIR || 'style',
 	compress: process.env.STYLE_COMPRESS || (process.env.NODE_ENV === 'production'),
 	port: process.env.PORT || 8080,
-	forward: 'http://' + (process.env.FORWARD !== undefined ? proces.env.FORWARD : 'localhost:') + process.env.PORT + '/',
+	config: {
+		host: 'localhost' || process.env.CONFIG_HOST,
+		port: 8081 || process.env.CONFIG_PORT,
+	}
 };

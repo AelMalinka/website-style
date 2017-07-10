@@ -19,8 +19,6 @@ const config = require('config')(require('./config.js'));
 
 const app = new koa();
 
-var server;
-
 app.use(logger());
 app.use(compress());
 app.use(conditional());
@@ -32,11 +30,5 @@ app.use(route.get(/^\/fonts(?:\/|$)/, serve('external/bootstrap')));
 config.onReady(function() {
 	app.use(style({src: config.where, compress: config.compress}));
 
-	server = app.listen(config.port);
-});
-
-config.onChange(function() {
-	server.close(function() {
-		server = app.listen(config.port);
-	});
+	app.listen(config.port);
 });
