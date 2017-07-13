@@ -13,20 +13,20 @@ spec:
         spec:
             containers:
                 - name: style
-                  image: us.gcr.io/entropy-development/style:0.1.1
+                  image: us.gcr.io/entropy-development/style:0.2.0
                   ports:
                       - containerPort: 8080
                   env:
-                      - name: CONFIG_HOST
+                      - name: STYLE_DIR
                         valueFrom:
                             configMapKeyRef:
                                 name: website-config
-                                key: config.host
-                      - name: CONFIG_PORT
+                                key: style.dir
+                      - name: STYLE_COMPRESS
                         valueFrom:
                             configMapKeyRef:
                                 name: website-config
-                                key: config.port
+                                key: style.compress
 ---
 apiVersion: v1
 kind: Service
