@@ -12,21 +12,21 @@ spec:
                 app: style
         spec:
             containers:
-                - name: style
-                  image: us.gcr.io/entropy-development/style:0.2.0
-                  ports:
-                      - containerPort: 8080
-                  env:
-                      - name: STYLE_DIR
-                        valueFrom:
-                            configMapKeyRef:
-                                name: website-config
-                                key: style.dir
-                      - name: STYLE_COMPRESS
-                        valueFrom:
-                            configMapKeyRef:
-                                name: website-config
-                                key: style.compress
+            - name: style
+              image: us.gcr.io/entropy-development/style:0.2.0
+              ports:
+              - containerPort: 8080
+              env:
+              - name: STYLE_DIR
+                valueFrom:
+                    configMapKeyRef:
+                        name: website-config
+                        key: style.dir
+              - name: STYLE_COMPRESS
+                valueFrom:
+                    configMapKeyRef:
+                        name: website-config
+                        key: style.compress
 ---
 apiVersion: v1
 kind: Service
@@ -37,8 +37,8 @@ metadata:
 spec:
     type: LoadBalancer
     ports:
-        - port: 8080
-          protocol: TCP
-          name: http-style
+    - port: 8080
+      protocol: TCP
+      name: http-style
     selector:
         app: style
