@@ -6,5 +6,5 @@ module.exports = {
 	name: 'style',
 	where: process.env.STYLE_DIR || 'style',
 	compress: process.env.STYLE_COMPRESS || (process.env.NODE_ENV === 'production'),
-	port: process.env.PORT || 8080,
+	port: process.env.PORT || 8081,
 };
