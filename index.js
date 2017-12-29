@@ -9,9 +9,7 @@ const logger = require('koa-logger');
 
 const etag = require('koa-etag');
 const conditional = require('koa-conditional-get');
-const serve = require('koa-static');
-const route = require('koa-route');
-const style = require('./style.js');
+const send = require('koa-send');
 const config = require('./config.js');
 
 const app = new koa();
@@ -27,8 +25,20 @@ app.use(async (ctx, next) => {
 	await next();
 });
 
-// 2017-04-27 AMR NOTE: router prepend and static path need to match on /fonts/
-app.use(route.get(/^\/fonts(?:\/|$)/, serve('external/bootstrap')));
-app.use(style({src: config.where, compress: config.compress}));
+app.use(async (ctx, next) => {
+	if(ctx.url == '/default.css') {
+		await send(ctx, config.style);
+	} else {
+		await next();
+	}
+});
+
+app.use(async (ctx, next) => {
+	if(ctx.url.endsWith('.css')) {
+		await send(ctx, config.path + ctx.path.replace('.css', '') + '/bootstrap.css');
+	} else {
+		await next();
+	}
+});
 
 app.listen(config.port);

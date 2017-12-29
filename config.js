@@ -4,7 +4,8 @@
 
 module.exports = {
 	name: 'style',
-	where: process.env.STYLE_DIR || 'style',
 	compress: process.env.STYLE_COMPRESS || (process.env.NODE_ENV === 'production'),
 	port: process.env.PORT || 8081,
+	path: 'node_modules/bootswatch/dist',
+	style: 'node_modules/bootswatch/dist/cyborg/bootstrap.css',
 };
