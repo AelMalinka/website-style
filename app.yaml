@@ -13,7 +13,7 @@ spec:
         spec:
             containers:
             - name: style
-              image: us.gcr.io/entropy-development/style:0.2.0
+              image: aelmalinka/style
               ports:
               - containerPort: 8080
               env:
