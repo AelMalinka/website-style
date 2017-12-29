@@ -19,16 +19,16 @@ spec:
               env:
               - name: PORT
                 value: 8080
-              - name: STYLE_DIR
+              - name: STYLE_PATH
                 valueFrom:
                     configMapKeyRef:
                         name: website-config
-                        key: style.dir
-              - name: STYLE_COMPRESS
+                        key: style.path
+              - name: STYLE_DEFAULT
                 valueFrom:
                     configMapKeyRef:
                         name: website-config
-                        key: style.compress
+                        key: style.default
 ---
 apiVersion: v1
 kind: Service
