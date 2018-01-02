@@ -34,6 +34,14 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
+	if(ctx.url == '/bootstrap.min.js') {
+		await send (ctx, config.js + ctx.url);
+	} else {
+		await next();
+	}
+});
+
+app.use(async (ctx, next) => {
 	if(ctx.url.endsWith('.css')) {
 		await send(ctx, config.path + ctx.path.replace('.css', '') + '/bootstrap.css');
 	} else {

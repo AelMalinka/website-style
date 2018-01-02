@@ -7,5 +7,6 @@ module.exports = {
 	compress: process.env.STYLE_COMPRESS || (process.env.NODE_ENV === 'production'),
 	port: process.env.PORT || 8081,
 	path: process.env.STYLE_PATH || 'node_modules/bootswatch/dist',
+	js: process.env.JS_PATH || 'node_modules/bootstrap/dist/js',
 	style: process.env.STYLE_DEFAULT || 'node_modules/bootswatch/dist/cyborg/bootstrap.css',
 };
