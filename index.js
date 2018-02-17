@@ -34,7 +34,7 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
-	if(ctx.url == '/bootstrap.min.js') {
+	if(ctx.url == '/bootstrap.min.js' || ctx.url == '/bootstrap.min.js.map') {
 		await send (ctx, config.js + ctx.url);
 	} else {
 		await next();
